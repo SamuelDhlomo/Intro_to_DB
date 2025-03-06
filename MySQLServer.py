@@ -1,15 +1,15 @@
-CREATE DATABASE IF NOT EXISTS alx_book_store;
+ATE DATABASE IF NOT EXISTS alx_book_store;
 
 \use alx_book_store;
 
 CREATE TABLE Books (
-    book_id INT AUTO_INCREMENT PRIMARY KEY, 
-    title VARCHAR(130) NOT NULL, 
+    book_id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(130) NOT NULL,
     author_id INT,
     price DOUBLE,
     publication_date DATE
 );
-
+i
 CREATE TABLE Authors (
     author_id INT AUTO_INCREMENT PRIMARY KEY,
     author_name VARCHAR(215) NOT NULL
@@ -34,9 +34,4 @@ CREATE TABLE Order_Details (
     order_id INT,
     book_id INT,
     quantity DOUBLE,
-    FOREIGN KEY (order_id) REFERENCES Orders(order_id),
-    FOREIGN KEY (book_id) REFERENCES Books(book_id)
-);
 
-ALTER TABLE Books
-ADD CONSTRAINT fk_author FOREIGN KEY (author_id) REFERENCES Authors(author_id);
