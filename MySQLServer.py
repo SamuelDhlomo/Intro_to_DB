@@ -1,37 +1,23 @@
-ATE DATABASE IF NOT EXISTS alx_book_store;
+import mysql.connector
 
-\use alx_book_store;
+try:
+  book_store_db = mysql.connector.connect(
+  host= 'localhost',
+  user= 'root',
+  passwd = '#############',
+)
+except mysql.connector.Error:
+  print("Database could not connect, Please check your logins")
+else:
+  book_store_db_cursor = book_store_db.cursor()
+  book_store_db_cursor.execute(
+    "CREATE DATABASE IF NOT EXISTS alx_book_store"
+  )
+  book_store_db.commit()
 
-CREATE TABLE Books (
-    book_id INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(130) NOT NULL,
-    author_id INT,
-    price DOUBLE,
-    publication_date DATE
-);
-i
-CREATE TABLE Authors (
-    author_id INT AUTO_INCREMENT PRIMARY KEY,
-    author_name VARCHAR(215) NOT NULL
-);
+  book_store_db_cursor.execute("USE alx_book_store")
+  book_store_db.commit()
 
-CREATE TABLE Customers (
-    customer_id INT AUTO_INCREMENT PRIMARY KEY,
-    customer_name VARCHAR(215) NOT NULL,
-    email VARCHAR(215),
-    address TEXT
-);
-
-CREATE TABLE Orders (
-    order_id INT AUTO_INCREMENT PRIMARY KEY,
-    customer_id INT,
-    order_date DATE,
-    FOREIGN KEY (customer_id) REFERENCES Customers(customer_id)
-);
-
-CREATE TABLE Order_Details (
-    order_detail_id INT AUTO_INCREMENT PRIMARY KEY,
-    order_id INT,
-    book_id INT,
-    quantity DOUBLE,
-
+  print(f"Database {book_store_db.database} created successfully!")
+finally:
+  book_store_db.close()
